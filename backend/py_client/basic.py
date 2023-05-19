@@ -4,7 +4,7 @@ import requests
 #endpoint = "https://httpbin.org/anything"
 endpoint =  "http://localhost:8000/api/"#"http://127.0.0.1:8000/"
 
-get_response = requests.get(endpoint, params={"abc":123},json={"query":"Hello World"}) # Application programming interface
+get_response = requests.post(endpoint, json={"content":"Hello World"}) # Application programming interface
 #print(get_response.text) #print raw text response
 #print(get_response.status_code)
 
