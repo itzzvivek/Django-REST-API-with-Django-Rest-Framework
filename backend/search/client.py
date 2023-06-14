@@ -18,8 +18,8 @@ def perform_search(query, **kwargs):
         tags = kwargs.pop("tags") or []
         if len(tags) != 0:
             params['tagsfilters'] = tags
-    index_filters = [f"{k}:{v}" for k,v in kwargs.items()] 
+    index_filters = [f"{k}:{v}" for k,v in kwargs.items() if v] 
     if len(index_filters) != 0:
-        params['faceFilter'] = index_filters
+        params['facetFilters'] = index_filters
     results = index.search(query, params)
     return results
