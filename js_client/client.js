@@ -1,9 +1,14 @@
 const contentContainer = document.getElementById('content-container')
 const loginForm = document.getElementById('login_form')
+const searchForm = document.getElementById('search_form')
 const baseEndpoint = "http://localhost:8000/api"
 if (loginForm){
     //handle this login form
     loginForm.addEventListener('submit',handleLogin)
+} 
+if (searchForm){
+    //handle this search form
+    searchForm.addEventListener('submit',handleSearch)
 } 
 
 function handleLogin(event) {
