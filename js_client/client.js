@@ -1,14 +1,9 @@
 const contentContainer = document.getElementById('content-container')
 const loginForm = document.getElementById('login_form')
-const searchForm = document.getElementById('search_form')
 const baseEndpoint = "http://localhost:8000/api"
 if (loginForm){
     //handle this login form
     loginForm.addEventListener('submit',handleLogin)
-} 
-if (searchForm){
-    //handle this search form
-    searchForm.addEventListener('submit',handleSearch)
 } 
 
 function handleLogin(event) {
@@ -151,3 +146,48 @@ function getProductList(){
 
 validateJWTToken()
 // getProductList()
+
+const searchClient = algoliasearch('X7ZSEZ27BS', '*******************');
+
+const search = instantsearch({
+  indexName: 'vivek_Product',
+  searchClient,
+});
+
+search.addWidgets([
+  instantsearch.widgets.searchBox({
+    container: '#searchbox',
+  }),
+
+    instantsearch.widgets.clearRefinements({
+    container: "#clear-refinements"
+    }),
+
+
+  instantsearch.widgets.refinementList({
+      container: "#user-list",
+      attribute: 'user'
+  }),
+  instantsearch.widgets.refinementList({
+    container: "#public-list",
+    attribute: 'public'
+}),
+
+
+  instantsearch.widgets.hits({
+    container: '#hits',
+    templates: {
+        item: `
+            <div>
+                <div>{{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}</div>
+                <div>{{#helpers.highlight}}{ "attribute": "body" }{{/helpers.highlight}}</div>
+                
+                <p>{{ user }}</p><p>\${{ price }}
+            
+            
+            </div>`
+    }
+  })
+]);
+
+search.start();
